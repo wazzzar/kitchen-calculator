@@ -1,0 +1,142 @@
+@media print {
+
+	#for_, .calc_caption, .controls, .calc_menu, .type_select_panel, .calc_footer, #order_form{ display: none; }
+	*{ -webkit-print-color-adjust: exact; }
+	html{ background-color : #FFFFFF; }
+	body{ font-family: Trebuchet MS, sans-serif; }
+	.calc_view_port{
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		height: 100%;
+		margin-left: 15em;
+		border: 1xp solid #ccc;
+	}
+	.calc_view_port img{
+		width: 80%;
+		position:absolute;
+		z-index: 2;
+		margin-top: -4em;
+	}
+	#kitchen_info_for_print{
+		width: 16em;
+		padding-top: 1em;
+		color: #444;
+	}
+
+}
+
+@media screen {
+
+*{
+	margin:0;
+	padding:0;
+	border:none;
+	outline:none;
+	font-family: Trebuchet MS, sans-serif;
+	font-size:16px;
+	font-weight: 100;
+	color: #6F6F6F;
+}
+
+html{
+	
+}
+
+body{
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+
+	/* No support for these yet, use at own risk */
+	-o-user-select: none;
+	user-select: none; 
+}
+
+ul, ol{
+	list-style:none;
+}
+
+img{
+	vertical-align: bottom;
+}
+
+a{
+	text-decoration: none;
+}
+
+a:hover{
+	
+}
+a:link{
+	
+}
+
+a:active{
+	
+}
+
+a:visited{
+	
+}
+
+input[type=checkbox]{
+	border:2px outset #FF0000:
+}
+
+label{
+	cursor: pointer;
+}
+
+.main{
+	padding: 1em 0 3em 0;
+	background: url("../img/forpage/main_back.png");
+}
+
+.clearFix:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.float_left{
+	float: left;
+}
+
+/* *************************************************************************** */
+.main input[type="radio"], .main input[type="checkbox"] {
+	display: none;
+}
+
+.main label.for-radio span{
+	background: url('../img/forpage/inputs/radio_unstd.png') no-repeat;
+	background-size: 1.2em;
+	padding-left: 1.55em;
+	display: block;
+	font-size: 0.6em;
+	line-height: 1.1em;
+	margin-left: 0.1em;
+}
+
+.main label.for-checkbox span{
+	background: url('../img/forpage/inputs/radio_unstd.png') no-repeat;
+	background-size: 1.2em;
+	background-position: 95% 50%;
+	padding-right: 1.55em;
+	display: block;
+	font-size: 0.7em;
+	line-height: 1em;
+}
+
+.main input[type="radio"]:checked + label.for-radio span{
+	background: url('../img/forpage/inputs/radio_std.png') no-repeat;
+	background-size: 1.2em;
+}
+
+.main input[type="checkbox"]:checked + label.for-checkbox span{
+	background: url('../img/forpage/inputs/radio_std.png') no-repeat;
+	background-size: 1.2em;
+	background-position: 95% 50%;
+}
+
+}

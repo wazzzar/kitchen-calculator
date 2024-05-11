@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>Калькулятор кухни</title>
+			
+		<!-- jQuery + UI -->
+		<script src="js/jQ/jquery-1.11.1.min.js"></script>
+		<script src="js/jQ/jquery-ui-1.10.3.min.js"></script>
+		<script src="js/jQ/jquery.ui.datepicker-ru.min.js"></script>
+		<link type="text/css" href="js/jQ/ui-lightness/jquery-ui.min.css" rel="stylesheet" />
+		<!-- /jQuery + UI -->
+
+		<script src="js/accounting.min.js"></script>
+
+		<!--  стили и скрипты приложения .min -->
+		<script src="js/main.js"></script>
+		<link type="text/css" href="css/style.css" rel="stylesheet" />
+		<link href='favicon.png' rel='icon' />
+	</head>
+	
+	<body style="zoom: 140%">
+		<div class="main">
+			<div class="calc_wrap">
+				<h1 class="calc_caption">Выберите характеристики, соответствующие вашей кухни:</h1>
+
+				<!-- Ползунки и Направление кухни -->
+				<div class="controls clearFix">
+					<div class="direction_control float_left">
+						<h3>Направление кухни:</h3>
+						<input name="mirror_toggle" type="radio" class="mirror_toggle" id="left" checked="">
+						<label for="left"> Левый угол</label><br>
+						<input name="mirror_toggle" type="radio" class="mirror_toggle" id="right">
+						<label for="right"> Правый угол</label>
+					</div>
+
+					<div class="L2_control length_controle float_left">
+						<div class="slider_caption clearFix">
+							<h4>Длина угловой секции (L2, мм)</h4>
+							<div></div>
+							<span id="L2_start">1320</span>
+							<span id="L2_end">1750</span>
+						</div>
+						<div id="size_input_L2" class="size_input"></div>
+					</div>
+
+					<div class="L1_control length_controle float_left">
+						<div class="slider_caption clearFix">
+							<h4>Общая длина кухни (L1, мм)</h4>
+							<div></div>
+							<span id="L1_start">3000</span>
+							<span id="L1_end">3500</span>
+						</div>
+						<div id="size_input_L1" class="size_input"></div>
+					</div>
+				</div>
+				<!-- /Ползунки и Направление кухни -->
+
+				<div class="float_left">
+					<!-- Основное меню -->
+					<div class="calc_menu float_left">
+						<ul class="main_menu">
+							<li class="has_sub_menu">Фасады <span class="menu_arrow"></span>
+								<ul class="sub_menu select_menu" id="facade_type">
+									<li>Без фрезеровки</li>
+									<li>Арка двойная</li>
+									<li>Классика</li>
+									<li>Классика романская</li>
+									<li>Прямоугольник 90</li>
+									<li>Лжевыборка</li>
+								</ul>
+							</li>
+							<li class="has_sub_menu">Столешница <span class="menu_arrow"></span>
+								<ul class="sub_menu select_menu" id="worktop_type">
+									<li>Пластик</li>
+									<li>Искусственный камень</li>
+								</ul>
+							</li>
+							<li class="has_sub_menu">Фартук <span class="menu_arrow"></span>
+								<ul class="sub_menu select_menu" id="apron_type">
+									<li>Без фартука</li>
+									<li>Пластик</li>
+									<li>Фотопечать</li>
+								</ul>
+							</li>
+							<li class="has_sub_menu">Ящики и дверьки <span class="menu_arrow"></span>
+								<ul class="sub_menu select_menu" id="hinges_type">
+									<li>С доводчиками</li>
+									<li>Без доводчиков</li>
+								</ul>
+							</li>
+							<li id="body_color_select" class="select_menu_item">Корпус</li>
+							<li id="washing_type_select" class="select_menu_item">Мойка</li>
+							<li id="glass_color_select" class="select_menu_item">Стёкла</li>
+							<li id="handles_type_select" class="select_menu_item">Ручки</li>
+						</ul>
+						
+						<ul class="main_menu second_menu">
+							<li>
+								<input type="checkbox" id="above_refreg" checked="checked">
+								<label for="above_refreg" class="for-checkbox"><span>Шкафчик над холодильником </span></label>
+							</li>
+							<li>
+								<input type="checkbox" id="delivery" checked="checked">
+								<label for="delivery" class="for-checkbox"><span>Доставка<br>&nbsp;</span></label>
+							</li>
+							<li>
+								<input type="checkbox" id="install" checked="checked">
+								<label for="install" class="for-checkbox"><span>Установка<br>&nbsp;</span></label>
+							</li>
+						</ul>
+					</div>
+					<!-- /Основное меню -->
+
+					<!-- Слои -->
+					<div class="calc_view_port ">
+						<div class="layers_wrap float_left">
+							<img src="img/Кухни/Угловая/Стены_и_пол.png" alt="Стены и пол" id="wall_floor_layer">
+
+							<img src="img/forpage/layer.png" alt="Корпус" id="body_layer">
+							<img src="img/forpage/layer.png" alt="Дверки верх" id="doortop_layer">
+							<img src="img/forpage/layer.png" alt="Дверки низ" id="doorbottom_layer">
+							<img src="img/forpage/layer.png" alt="Фасад" id="facade_layer">
+							<img src="img/forpage/layer.png" alt="Ручки" id="handles_layer">
+							<img src="img/forpage/layer.png" alt="Стекло" id="glass_layer">
+							<img src="img/forpage/layer.png" alt="Столешница" id="worktop_layer">
+							<img src="img/forpage/layer.png" alt="Мойка" id="washing_layer">
+							<img src="img/forpage/layer.png" alt="Фартук" id="apron_layer">
+
+							<img src="img/forpage/layer.png" alt="Корпус шкафчик" id="body_module_layer">
+							<img src="img/forpage/layer.png" alt="Дверки шкафчик" id="door_module_layer">
+							<img src="img/forpage/layer.png" alt="Фасад шкафчик" id="facade_module_layer">
+							<img src="img/forpage/layer.png" alt="Ручки шкафчик" id="handles_module_layer">
+
+							<img src="img/Кухни/Угловая/Тень.png" alt="Тень" id="shadow_layer">
+							<img src="img/Кухни/Угловая/Плита_и_микроволновка.png" alt="Плита и микроволновка" id="stove_microwave_layer">
+							<img src="img/Кухни/Угловая/Холодильник.png" alt="Холодильник" id="refreg_module_layer">
+						</div>
+					</div>
+					<div id="big_pic"></div>
+					<!-- /Слои -->
+				</div>
+
+				<!-- панель выбора -->
+				<div class="type_select_panel float_left ">
+					<h3>панель выбора</h3>
+
+					<div class="position_select">
+						<input type="image" src="img/forpage/buttons/top.png" alt="Верхние" title="Верхние">
+						<input type="image" src="img/forpage/buttons/bottom.png" alt="Нижние" title="Нижние">
+						<input type="image" src="img/forpage/buttons/both.png" alt="ВерхниеНижние" title="Верхние и Нижние" class="selected">
+					</div>
+
+					<div class="type_select">
+						<!-- фасад -->
+						<div class="facade_type">
+							<div class="direct_door">
+								<div class="select_item first_colors">
+									<label for="Белый_глянец" class="for-radio"><img alt="Белый глянец" src="img/мини/фасады/Белый_глянец.png"></label>
+									<input type="radio" name="door_color" value="Белый_глянец" id="Белый_глянец" class="4кат">
+									<label for="Белый_глянец" class="for-radio"><span>Белый глянец</span></label>
+								</div>
+								
+								<div class="select_item first_colors">
+									<label for="Вишневый_глянец" class="for-radio"><img alt="Вишневый глянец" src="img/мини/фасады/Вишневый_глянец.png"></label>
+									<input type="radio" name="door_color" value="Вишневый_глянец" id="Вишневый_глянец" class="4кат">
+									<label for="Вишневый_глянец" class="for-radio"><span>Вишневый глянец</span></label>
+								</div><div class="clearFix"></div>
+								
+								<div class="select_item first_colors">
+									<label for="Жасмин_глянец" class="for-radio"><img alt="Жасмин глянец" src="img/мини/фасады/Жасмин_глянец.png"></label>
+									<input type="radio" name="door_color" value="Жасмин_глянец" id="Жасмин_глянец" class="4кат">
+									<label for="Жасмин_глянец" class="for-radio"><span>Жасмин глянец</span></label>
+								</div>
+								
+								<div class="select_item first_colors">
+									<label for="Капучино_глянец" class="for-radio"><img alt="Капучино глянец" src="img/мини/фасады/Капучино_глянец.png"></label>
+									<input type="radio" name="door_color" value="Капучино_глянец" id="Капучино_глянец" class="4кат">
+									<label for="Капучино_глянец" class="for-radio"><span>Капучино глянец</span></label>
+								</div><div class="clearFix"></div>
+								
+								<div class="select_item first_colors">
+									<label for="Кислород_глянец" class="for-radio"><img alt="Кислород глянец" src="img/мини/фасады/Кислород_глянец.png"></label>
+									<input type="radio" name="door_color" value="Кислород_глянец" id="Кислород_глянец" class="4кат">
+									<label for="Кислород_глянец" class="for-radio"><span>Кислород глянец</span></label>
+								</div>
+								
+								<div class="select_item first_colors">
+									<label for="Оранжевый_глянец" class="for-radio"><img alt="Оранжевый глянец" src="img/мини/фасады/Оранжевый_глянец.png"></label>
+									<input type="radio" name="door_color" value="Оранжевый_глянец" id="Оранжевый_глянец" class="4кат">
+									<label for="Оранжевый_глянец" class="for-radio"><span>Оранжевый глянец</span></label>
+								</div><div class="clearFix"></div>
+								
+								<div class="select_item second_colors">
+									<label for="Синий" class="for-radio"><img alt="Синий" src="img/мини/фасады/Синий.png"></label>
+									<input type="radio" name="door_color" value="Синий" id="Синий" class="1кат">
+									<label for="Синий" class="for-radio"><span>Синий</span></label>
+								</div>
+								
+								<div class="select_item second_colors">
+									<label for="Черный_глянец" class="for-radio"><img alt="Черный глянец" src="img/мини/фасады/Черный_глянец.png"></label>
+									<input type="radio" name="door_color" value="Черный_глянец" id="Черный_глянец" class="5кат">
+									<label for="Черный_глянец" class="for-radio"><span>Черный глянец</span></label>
+								</div><div class="clearFix"></div>
+								
+								<div class="select_item second_colors">
+									<label for="Метталик" class="for-radio"><img alt="Метталик" src="img/мини/фасады/Метталик.png"></label>
+									<input type="radio" name="door_color" value="Метталик" id="Метталик" class="4кат">
+									<label for="Метталик" class="for-radio"><span>Метталик</span></label>
+								</div>
+								
+								<div class="select_item second_colors">
+									<label for="Мокко_мелинга" class="for-radio"><img alt="Мокко мелинга" src="img/мини/фасады/Мокко_мелинга.png"></label>
+									<input type="radio" name="door_color" value="Мокко_мелинга" id="Мокко_мелинга" class="3кат">
+									<label for="Мокко_мелинга" class="for-radio"><span>Мокко мелинга</span></label>
+								</div><div class="clearFix"></div>
+								
+								<div class="select_item second_colors">
+									<label for="Руна_винная" class="for-radio"><img alt="Руна винная" src="img/мини/фасады/Руна_винная.png"></label>
+									<input type="radio" name="door_color" value="Руна_винная" id="Руна_винная" class="4кат">
+									<label for="Руна_винная" class="for-radio"><span>Руна винная</span></label>
+								</div>
+								
+								<div class="select_item second_colors">
+									<label for="Руна_молочная" class="for-radio"><img alt="Руна молочная" src="img/мини/фасады/Руна_молочная.png"></label>
+									<input type="radio" name="door_color" value="Руна_молочная" id="Руна_молочная" class="4кат">
+									<label for="Руна_молочная" class="for-radio"><span>Руна молочная</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item_arrow more_arrow"></div>	
+							</div>
+
+							<div class="classic_door">
+								<div class="select_item first_colors">
+									<label for="Береза_розовая" class="for-radio"><img alt="Береза розовая" src="img/мини/фасады/Береза_розовая.png"></label>
+									<input type="radio" name="door_color" value="Береза_розовая" id="Береза_розовая" class="3кат">
+									<label for="Береза_розовая" class="for-radio"><span>Береза розовая</span></label>
+								</div>
+								
+								<div class="select_item first_colors">
+									<label for="Вишня_шираз" class="for-radio"><img alt="Вишня шираз" src="img/мини/фасады/Вишня_шираз.png"></label>
+									<input type="radio" name="door_color" value="Вишня_шираз" id="Вишня_шираз" class="2кат">
+									<label for="Вишня_шираз" class="for-radio"><span>Вишня шираз</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item first_colors">
+									<label for="Дуб_выбеленный" class="for-radio"><img alt="Дуб выбеленный" src="img/мини/фасады/Дуб_выбеленный.png"></label>
+									<input type="radio" name="door_color" value="Дуб_выбеленный" id="Дуб_выбеленный" class="1кат">
+									<label for="Дуб_выбеленный" class="for-radio"><span>Дуб выбеленный</span></label>
+								</div>
+								
+								<div class="select_item first_colors">
+									<label for="Дуб_мелинга" class="for-radio"><img alt="Дуб мелинга" src="img/мини/фасады/Дуб_мелинга.png"></label>
+									<input type="radio" name="door_color" value="Дуб_мелинга" id="Дуб_мелинга" class="3кат">
+									<label for="Дуб_мелинга" class="for-radio"><span>Дуб мелинга</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item first_colors">
+									<label for="Дуб_фермерский" class="for-radio"><img alt="Дуб фермерский" src="img/мини/фасады/Дуб_фермерский.png"></label>
+									<input type="radio" name="door_color" value="Дуб_фермерский" id="Дуб_фермерский" class="1кат">
+									<label for="Дуб_фермерский" class="for-radio"><span>Дуб фермерский</span></label>
+								</div>
+								
+								<div class="select_item first_colors">
+									<label for="Дуб" class="for-radio"><img alt="Дуб" src="img/мини/фасады/Дуб.png"></label>
+									<input type="radio" name="door_color" value="Дуб" id="Дуб" class="2кат">
+									<label for="Дуб" class="for-radio"><span>Дуб</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item second_colors">
+									<label for="Ольха" class="for-radio"><img alt="Ольха" src="img/мини/фасады/Ольха.png"></label>
+									<input type="radio" name="door_color" value="Ольха" id="Ольха" class="1кат">
+									<label for="Ольха" class="for-radio"><span>Ольха</span></label>
+								</div>
+								
+								<div class="select_item second_colors">
+									<label for="Палисандр_африканский" class="for-radio"><img alt="Палисандр африканский" src="img/мини/фасады/Палисандр_африканский.png"></label>
+									<input type="radio" name="door_color" value="Палисандр_африканский" id="Палисандр_африканский" class="3кат">
+									<label for="Палисандр_африканский" class="for-radio"><span>Палисандр африканский</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item_arrow more_arrow"></div>
+							</div>
+						</div>
+						<!-- /фасад -->
+
+						<!-- корпус -->
+						<div class="body_color_select">
+							<div class="select_item first_colors">
+								<label for="Белый" class="for-radio"><img alt="Белый" src="img/мини/корпус/Белый.png"></label>
+								<input type="radio" name="body_color" value="Белый" id="Белый" class="2кат">
+								<label for="Белый" class="for-radio"><span>Белый</span></label>
+							</div>
+
+							<div class="select_item first_colors">
+								<label for="Алюминий" class="for-radio"><img alt="Алюминий" src="img/мини/корпус/Алюминий.png"></label>
+								<input type="radio" name="body_color" value="Алюминий" id="Алюминий" class="3кат">
+								<label for="Алюминий" class="for-radio"><span>Алюминий</span></label>
+							</div><div class="clearFix"></div>
+
+							<div class="select_item first_colors">
+								<label for="Бежевый" class="for-radio"><img alt="Бежевый" src="img/мини/корпус/Бежевый.png"></label>
+								<input type="radio" name="body_color" value="Бежевый" id="Бежевый" class="2кат">
+								<label for="Бежевый" class="for-radio"><span>Бежевый</span></label>
+							</div>
+
+							<div class="select_item first_colors">
+								<label for="Вудлайн_кремовый" class="for-radio"><img alt="Вудлайн кремовый" src="img/мини/корпус/Вудлайн_кремовый.png"></label>
+								<input type="radio" name="body_color" value="Вудлайн_кремовый" id="Вудлайн_кремовый" class="3кат">
+								<label for="Вудлайн_кремовый" class="for-radio"><span>Вудлайн кремовый</span></label>
+							</div><div class="clearFix"></div>
+
+							<div class="select_item first_colors">
+								<label for="Дуб_сантана" class="for-radio"><img alt="Дуб сантана" src="img/мини/корпус/Дуб_сантана.png"></label>
+								<input type="radio" name="body_color" value="Дуб_сантана" id="Дуб_сантана" class="2кат">
+								<label for="Дуб_сантана" class="for-radio"><span>Дуб сантана</span></label>
+							</div>
+
+							<div class="select_item first_colors">
+								<label for="Махагон" class="for-radio"><img alt="Махагон" src="img/мини/корпус/Махагон.png"></label>
+								<input type="radio" name="body_color" value="Махагон" id="Махагон" class="3кат">
+								<label for="Махагон" class="for-radio"><span>Махагон</span></label>
+							</div><div class="clearFix"></div>
+
+							<div class="select_item second_colors">
+								<label for="Зебрано_серо-бежевый" class="for-radio"><img alt="Зебрано серо-бежевый" src="img/мини/корпус/Зебрано_серо-бежевый.png"></label>
+								<input type="radio" name="body_color" value="Зебрано_серо-бежевый" id="Зебрано_серо-бежевый" class="3кат">
+								<label for="Зебрано_серо-бежевый" class="for-radio"><span>Зебрано серо-бежевый</span></label>
+							</div>
+
+							<div class="select_item second_colors">
+								<label for="Ольха_2" class="for-radio"><img alt="Ольха" src="img/мини/корпус/Ольха.png"></label>
+								<input type="radio" name="body_color" value="Ольха" id="Ольха_2" class="2кат">
+								<label for="Ольха_2" class="for-radio"><span>Ольха</span></label>
+							</div><div class="clearFix"></div>
+
+							<div class="select_item second_colors">
+								<label for="Орех" class="for-radio"><img alt="Орех" src="img/мини/корпус/Орех.png"></label>
+								<input type="radio" name="body_color" value="Орех" id="Орех" class="2кат">
+								<label for="Орех" class="for-radio"><span>Орех</span></label>
+							</div>
+
+							<div class="select_item second_colors">
+								<label for="Феррара" class="for-radio"><img alt="Феррара" src="img/мини/корпус/Феррара.png"></label>
+								<input type="radio" name="body_color" value="Феррара" id="Феррара" class="3кат">
+								<label for="Феррара" class="for-radio"><span>Феррара</span></label>
+							</div><div class="clearFix"></div>
+
+							<div class="select_item second_colors">
+								<label for="Фино_бронза" class="for-radio"><img alt="Фино бронза" src="img/мини/корпус/Фино_бронза.png"></label>
+								<input type="radio" name="body_color" value="Фино_бронза" id="Фино_бронза" class="2кат">
+								<label for="Фино_бронза" class="for-radio"><span>Фино бронза</span></label>
+							</div><div class="clearFix"></div>
+							
+							<div class="select_item_arrow more_arrow"></div>
+						</div>
+						<!-- /корпус -->
+
+						<!-- столешница -->
+						<div class="worktop_type">
+							<div class="stolex">
+								<div class="select_item first_colors">
+									<label for="Ардезия" class="for-radio"><img alt="Ардезия" src="img/мини/пластик/Ардезия.png"></label>
+									<input type="radio" name="worktop_color" value="Ардезия" id="Ардезия" class="Пластик">
+									<label for="Ардезия" class="for-radio"><span>Ардезия</span></label>
+								</div>
+
+								<div class="select_item first_colors">
+									<label for="Гранада" class="for-radio"><img alt="Гранада" src="img/мини/пластик/Гранада.png"></label>
+									<input type="radio" name="worktop_color" value="Гранада" id="Гранада" class="Пластик">
+									<label for="Гранада" class="for-radio"><span>Гранада</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item first_colors">
+									<label for="Гранит_габро" class="for-radio"><img alt="Гранит габро" src="img/мини/пластик/Гранит_габро.png"></label>
+									<input type="radio" name="worktop_color" value="Гранит_габро" id="Гранит_габро" class="Пластик">
+									<label for="Гранит_габро" class="for-radio"><span>Гранит габро</span></label>
+								</div>
+
+								<div class="select_item first_colors">
+									<label for="Дуглас_светлый" class="for-radio"><img alt="Дуглас светлый" src="img/мини/пластик/Дуглас_светлый.png"></label>
+									<input type="radio" name="worktop_color" value="Дуглас_светлый" id="Дуглас_светлый" class="Пластик">
+									<label for="Дуглас_светлый" class="for-radio"><span>Дуглас светлый</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item first_colors">
+									<label for="Дуглас_темный" class="for-radio"><img alt="Дуглас темный" src="img/мини/пластик/Дуглас_темный.png"></label>
+									<input type="radio" name="worktop_color" value="Дуглас_темный" id="Дуглас_темный" class="Пластик">
+									<label for="Дуглас_темный" class="for-radio"><span>Дуглас темный</span></label>
+								</div>
+
+								<div class="select_item first_colors">
+									<label for="ЛаСкала" class="for-radio"><img alt="ЛаСкала" src="img/мини/пластик/ЛаСкала.png"></label>
+									<input type="radio" name="worktop_color" value="ЛаСкала" id="ЛаСкала" class="Пластик">
+									<label for="ЛаСкала" class="for-radio"><span>ЛаСкала</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item first_colors">
+									<label for="Малахит" class="for-radio"><img alt="Малахит" src="img/мини/пластик/Малахит.png"></label>
+									<input type="radio" name="worktop_color" value="Малахит" id="Малахит" class="Пластик">
+									<label for="Малахит" class="for-radio"><span>Малахит</span></label>
+								</div>
+
+								<div class="select_item first_colors">
+									<label for="Мозайка_итальянская" class="for-radio"><img alt="Мозайка итальянская" src="img/мини/пластик/Мозайка_итальянская.png"></label>
+									<input type="radio" name="worktop_color" value="Мозайка_итальянская" id="Мозайка_итальянская" class="Пластик">
+									<label for="Мозайка_итальянская" class="for-radio"><span>Мозайка итальянская</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item second_colors">
+									<label for="Мрамор_бежевый" class="for-radio"><img alt="Мрамор бежевый" src="img/мини/пластик/Мрамор_бежевый.png"></label>
+									<input type="radio" name="worktop_color" value="Мрамор_бежевый" id="Мрамор_бежевый" class="Пластик">
+									<label for="Мрамор_бежевый" class="for-radio"><span>Мрамор бежевый</span></label>
+								</div>
+							
+								<div class="select_item second_colors">
+									<label for="Мрамор_синий" class="for-radio"><img alt="Мрамор синий" src="img/мини/пластик/Мрамор_синий.png"></label>
+									<input type="radio" name="worktop_color" value="Мрамор_синий" id="Мрамор_синий" class="Пластик">
+									<label for="Мрамор_синий" class="for-radio"><span>Мрамор синий</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item second_colors">
+									<label for="Мрамор_средиземноморский" class="for-radio"><img alt="Мрамор средиземноморский" src="img/мини/пластик/Мрамор_средиземноморский.png"></label>
+									<input type="radio" name="worktop_color" value="Мрамор_средиземноморский" id="Мрамор_средиземноморский" class="Пластик">
+									<label for="Мрамор_средиземноморский" class="for-radio"><span>Мрамор средиземноморский</span></label>
+								</div>
+							
+								<div class="select_item second_colors">
+									<label for="Перлино_классический" class="for-radio"><img alt="Перлино классический" src="img/мини/пластик/Перлино_классический.png"></label>
+									<input type="radio" name="worktop_color" value="Перлино_классический" id="Перлино_классический" class="Пластик">
+									<label for="Перлино_классический" class="for-radio"><span>Перлино классический</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item second_colors">
+									<label for="Саломея" class="for-radio"><img alt="Саломея" src="img/мини/пластик/Саломея.png"></label>
+									<input type="radio" name="worktop_color" value="Саломея" id="Саломея" class="Пластик">
+									<label for="Саломея" class="for-radio"><span>Саломея</span></label>
+								</div>
+							
+								<div class="select_item second_colors">
+									<label for="Семолина_серая" class="for-radio"><img alt="Семолина серая" src="img/мини/пластик/Семолина_серая.png"></label>
+									<input type="radio" name="worktop_color" value="Семолина_серая" id="Семолина_серая" class="Пластик">
+									<label for="Семолина_серая" class="for-radio"><span>Семолина серая</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item second_colors">
+									<label for="Травертин_римский" class="for-radio"><img alt="Травертин римский" src="img/мини/пластик/Травертин_римский.png"></label>
+									<input type="radio" name="worktop_color" value="Травертин_римский" id="Травертин_римский" class="Пластик">
+									<label for="Травертин_римский" class="for-radio"><span>Травертин римский</span></label>
+								</div><div class="clearFix"></div>
+
+								<div class="select_item_arrow more_arrow"></div>
+							</div>
+							
+							<div class="stone">
+								<div class="select_item first_colors">
+									<label for="Арктический_воздух" class="for-radio"><img alt="Арктический воздух" src="img/мини/камень/Арктический_воздух.png"></label>
+									<input type="radio" name="worktop_color" value="Арктический_воздух" id="Арктический_воздух" class="Grandex">
+									<label for="Арктический_воздух" class="for-radio"><span>Арктический воздух</span></label>
+								</div>
+								
+								<div class="select_item first_colors">
+									<label for="Асфальт" class="for-radio"><img alt="Асфальт" src="img/мини/камень/Асфальт.png"></label>
+									<input type="radio" name="worktop_color" value="Асфальт" id="Асфальт" class="Grandex">
+									<label for="Асфальт" class="for-radio"><span>Асфальт</span></label>
+								</div><div class="clearFix"></div>
+								
+								<div class="select_item first_colors">
+									<label for="Драгоценный_камень" class="for-radio"><img alt="Драгоценный камень" src="img/мини/камень/Драгоценный_камень.png"></label>
+									<input type="radio" name="worktop_color" value="Драгоценный_камень" id="Драгоценный_камень" class="Grandex">
+									<label for="Драгоценный_камень" class="for-radio"><span>Драгоценный камень</span></label>
+								</div>
+
+								<div class="select_item first_colors">
+									<label for="Какао_дерево" class="for-radio"><img alt="Какао дерево" src="img/мини/камень/Какао_дерево.png"></label>
+									<input type="radio" name="worktop_color" value="Какао_дерево" id="Какао_дерево" class="Grandex">
+									<label for="Какао_дерево" class="for-radio"><span>Какао дерево</span></label>
+								</div><div class="clearFix"></div>
+
+								<div class="select_item first_colors">
+									<label for="106" class="for-radio"><img alt="106" src="img/мини/камень/106.png"></label>
+									<input type="radio" name="worktop_color" value="106" id="106" class="Granilux">
+									<label for="106" class="for-radio"><span>106</span></label>
+								</div>
+
+								<div class="select_item first_colors">
+									<label for="134" class="for-radio"><img alt="" src="img/мини/камень/134.png"></label>
+									<input type="radio" name="worktop_color" value="134" id="134" class="Granilux">
+									<label for="134" class="for-radio"><span>134</span></label>
+								</div><div class="clearFix"></div>
+
+								<div class="select_item second_colors">
+									<label for="135" class="for-radio"><img alt="135" src="img/мини/камень/135.png"></label>
+									<input type="radio" name="worktop_color" value="135" id="135" class="Granilux">
+									<label for="135" class="for-radio"><span>135</span></label>
+								</div>
+
+								<div class="select_item second_colors">
+									<label for="143" class="for-radio"><img alt="143" src="img/мини/камень/143.png"></label>
+									<input type="radio" name="worktop_color" value="143" id="143" class="Granilux">
+									<label for="143" class="for-radio"><span>143</span></label>
+								</div><div class="clearFix"></div>
+
+								<div class="select_item second_colors">
+									<label for="146" class="for-radio"><img alt="146" src="img/мини/камень/146.png"></label>
+									<input type="radio" name="worktop_color" value="146" id="146" class="Granilux">
+									<label for="146" class="for-radio"><span>146</span></label>
+								</div>
+
+								<div class="select_item second_colors">
+									<label for="153" class="for-radio"><img alt="153" src="img/мини/камень/153.png"></label>
+									<input type="radio" name="worktop_color" value="153" id="153" class="Granilux">
+									<label for="153" class="for-radio"><span>153</span></label>
+								</div><div class="clearFix"></div>
+
+								<div class="select_item_arrow more_arrow"></div>
+							</div>
+						</div>
+						<!-- /столешница -->
+
+						<!-- фартук -->
+						<div class="apron_type">
+							<!-- пришлось скопировать т.к жиквери не смог -->
+							<div class="stolex">
+								<div class="select_item first_colors">
+									<label for="Ардезия_2" class="for-radio"><img alt="Ардезия" src="img/мини/пластик/Ардезия.png"></label>
+									<input type="radio" name="apron_color" value="Ардезия" id="Ардезия_2">
+									<label for="Ардезия_2" class="for-radio"><span>Ардезия</span></label>
+								</div>
+
+								<div class="select_item first_colors">
+									<label for="Гранада_2" class="for-radio"><img alt="Гранада" src="img/мини/пластик/Гранада.png"></label>
+									<input type="radio" name="apron_color" value="Гранада" id="Гранада_2">
+									<label for="Гранада_2" class="for-radio"><span>Гранада</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item first_colors">
+									<label for="Гранит_габро_2" class="for-radio"><img alt="Гранит габро" src="img/мини/пластик/Гранит_габро.png"></label>
+									<input type="radio" name="apron_color" value="Гранит_габро" id="Гранит_габро_2">
+									<label for="Гранит_габро_2" class="for-radio"><span>Гранит габро</span></label>
+								</div>
+
+								<div class="select_item first_colors">
+									<label for="Дуглас_светлый_2" class="for-radio"><img alt="Дуглас светлый" src="img/мини/пластик/Дуглас_светлый.png"></label>
+									<input type="radio" name="apron_color" value="Дуглас_светлый" id="Дуглас_светлый_2">
+									<label for="Дуглас_светлый_2" class="for-radio"><span>Дуглас светлый</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item first_colors">
+									<label for="Дуглас_темный_2" class="for-radio"><img alt="Дуглас темный" src="img/мини/пластик/Дуглас_темный.png"></label>
+									<input type="radio" name="apron_color" value="Дуглас_темный" id="Дуглас_темный_2">
+									<label for="Дуглас_темный_2" class="for-radio"><span>Дуглас темный</span></label>
+								</div>
+
+								<div class="select_item first_colors">
+									<label for="ЛаСкала_2" class="for-radio"><img alt="ЛаСкала" src="img/мини/пластик/ЛаСкала.png"></label>
+									<input type="radio" name="apron_color" value="ЛаСкала" id="ЛаСкала_2">
+									<label for="ЛаСкала_2" class="for-radio"><span>ЛаСкала</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item first_colors">
+									<label for="Малахит_2" class="for-radio"><img alt="Малахит" src="img/мини/пластик/Малахит.png"></label>
+									<input type="radio" name="apron_color" value="Малахит" id="Малахит_2">
+									<label for="Малахит_2" class="for-radio"><span>Малахит</span></label>
+								</div>
+
+								<div class="select_item first_colors">
+									<label for="Мозайка_итальянская_2" class="for-radio"><img alt="Мозайка итальянская" src="img/мини/пластик/Мозайка_итальянская.png"></label>
+									<input type="radio" name="apron_color" value="Мозайка_итальянская" id="Мозайка_итальянская_2">
+									<label for="Мозайка_итальянская_2" class="for-radio"><span>Мозайка итальянская</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item second_colors">
+									<label for="Мрамор_бежевый_2" class="for-radio"><img alt="Мрамор бежевый" src="img/мини/пластик/Мрамор_бежевый.png"></label>
+									<input type="radio" name="apron_color" value="Мрамор_бежевый" id="Мрамор_бежевый_2">
+									<label for="Мрамор_бежевый_2" class="for-radio"><span>Мрамор бежевый</span></label>
+								</div>
+							
+								<div class="select_item second_colors">
+									<label for="Мрамор_синий_2" class="for-radio"><img alt="Мрамор синий" src="img/мини/пластик/Мрамор_синий.png"></label>
+									<input type="radio" name="apron_color" value="Мрамор_синий" id="Мрамор_синий_2">
+									<label for="Мрамор_синий_2" class="for-radio"><span>Мрамор синий</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item second_colors">
+									<label for="Мрамор_средиземноморский_2" class="for-radio"><img alt="Мрамор средиземноморский" src="img/мини/пластик/Мрамор_средиземноморский.png"></label>
+									<input type="radio" name="apron_color" value="Мрамор_средиземноморский" id="Мрамор_средиземноморский_2">
+									<label for="Мрамор_средиземноморский_2" class="for-radio"><span>Мрамор средиземноморский</span></label>
+								</div>
+							
+								<div class="select_item second_colors">
+									<label for="Перлино_классический_2" class="for-radio"><img alt="Перлино классический" src="img/мини/пластик/Перлино_классический.png"></label>
+									<input type="radio" name="apron_color" value="Перлино_классический" id="Перлино_классический_2">
+									<label for="Перлино_классический_2" class="for-radio"><span>Перлино классический</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item second_colors">
+									<label for="Саломея_2" class="for-radio"><img alt="Саломея" src="img/мини/пластик/Саломея.png"></label>
+									<input type="radio" name="apron_color" value="Саломея" id="Саломея_2">
+									<label for="Саломея_2" class="for-radio"><span>Саломея</span></label>
+								</div>
+							
+								<div class="select_item second_colors">
+									<label for="Семолина_серая_2" class="for-radio"><img alt="Семолина серая" src="img/мини/пластик/Семолина_серая.png"></label>
+									<input type="radio" name="apron_color" value="Семолина_серая" id="Семолина_серая_2">
+									<label for="Семолина_серая_2" class="for-radio"><span>Семолина серая</span></label>
+								</div><div class="clearFix"></div>
+							
+								<div class="select_item second_colors">
+									<label for="Травертин_римский_2" class="for-radio"><img alt="Травертин римский" src="img/мини/пластик/Травертин_римский.png"></label>
+									<input type="radio" name="apron_color" value="Травертин_римский" id="Травертин_римский_2">
+									<label for="Травертин_римский_2" class="for-radio"><span>Травертин римский</span></label>
+								</div><div class="clearFix"></div>
+
+								<div class="select_item_arrow more_arrow"></div>
+							</div>
+							<div class="photo">
+								<div class="select_item">
+									<label for="Камешки" class="for-radio"><img alt="Камешки" src="img/мини/фотопечать/Камешки.png"></label>
+									<input type="radio" name="apron_color" value="Камешки" id="Камешки">
+									<label for="Камешки" class="for-radio"><span>Камешки</span></label>
+								</div>
+								
+								<div class="select_item">
+									<label for="Трава" class="for-radio"><img alt="Трава" src="img/мини/фотопечать/Трава.png"></label>
+									<input type="radio" name="apron_color" value="Трава" id="Трава">
+									<label for="Трава" class="for-radio"><span>Трава</span></label>
+								</div><div class="clearFix"></div>
+								
+								<div class="select_item">
+									<label for="Фрукты" class="for-radio"><img alt="Фрукты" src="img/мини/фотопечать/Фрукты.png"></label>
+									<input type="radio" name="apron_color" value="Фрукты" id="Фрукты">
+									<label for="Фрукты" class="for-radio"><span>Фрукты</span></label>
+								</div>
+								
+								<div class="select_item">
+									<label for="Сакура" class="for-radio"><img alt="Сакура" src="img/мини/фотопечать/Сакура.png"></label>
+									<input type="radio" name="apron_color" value="Сакура" id="Сакура">
+									<label for="Сакура" class="for-radio"><span>Сакура</span></label>
+								</div><div class="clearFix"></div>
+								
+								<div class="select_item">
+									<label for="Город" class="for-radio"><img alt="Город" src="img/мини/фотопечать/Город.png"></label>
+									<input type="radio" name="apron_color" value="Город" id="Город">
+									<label for="Город" class="for-radio"><span>Город</span></label>
+								</div>
+							</div>
+						</div>
+						<!-- /фартук -->
+
+						<!-- мойки -->
+						<div class="washing_type_select">
+							<div class="select_item">
+								<label for="GAP465.488" class="for-radio"><img alt="GAP465.488" src="img/мини/мойки/GAP465.488.png"></label>
+								<input type="radio" name="washing_type" value="GAP465.488" id="GAP465.488" checked="checked">
+								<label for="GAP465.488" class="for-radio"><span>GAP465.488</span></label>
+							</div>
+
+							<div class="select_item">
+								<label for="COP580.488" class="for-radio"><img alt="COP580.488" src="img/мини/мойки/COP580.488.png"></label>
+								<input type="radio" name="washing_type" value="COP580.488" id="COP580.488">
+								<label for="COP580.488" class="for-radio"><span>COP580.488</span></label>
+							</div>
+
+							<div class="select_item">
+								<label for="FA510" class="for-radio"><img alt="FA510" src="img/мини/мойки/FA510.png"></label>
+								<input type="radio" name="washing_type" value="FA510" id="FA510">
+								<label for="FA510" class="for-radio"><span>FA510</span></label>
+							</div>
+
+							<div class="select_item">
+								<label for="FAP770.480" class="for-radio"><img alt="FAP770.480" src="img/мини/мойки/FAP770.480.png"></label>
+								<input type="radio" name="washing_type" value="FAP770.480" id="FAP770.480">
+								<label for="FAP770.480" class="for-radio"><span>FAP770.480</span></label>
+							</div>
+
+							<div class="select_item">
+								<label for="COP778.488W" class="for-radio"><img alt="COP778.488W" src="img/мини/мойки/COP778.488W.png"></label>
+								<input type="radio" name="washing_type" value="COP778.488W" id="COP778.488W">
+								<label for="COP778.488W" class="for-radio"><span>COP778.488W</span></label>
+							</div>
+						</div>
+						<!-- /мойки -->
+
+						<!-- стекла -->
+						<div class="glass_color_select">
+							<div class="select_item">
+								<label for="Вулкан_бронза" class="for-radio"><img alt="Вулкан бронза" src="img/мини/стекла/Вулкан_бронза.png"></label>
+								<input type="radio" name="glass_color" value="Вулкан_бронза" id="Вулкан_бронза" class="2кат">
+								<label for="Вулкан_бронза" class="for-radio"><span>Вулкан бронза</span></label>
+							</div>
+
+							<div class="select_item">
+								<label for="Матовое" class="for-radio"><img alt="Матовое" src="img/мини/стекла/Матовое.png"></label>
+								<input type="radio" name="glass_color" value="Матовое" id="Матовое" class="1кат">
+								<label for="Матовое" class="for-radio"><span>Матовое</span></label>
+							</div><div class="clearFix"></div>
+							
+							<div class="select_item">
+								<label for="Овес" class="for-radio"><img alt="Овес" src="img/мини/стекла/Овес.png"></label>
+								<input type="radio" name="glass_color" value="Овес" id="Овес" class="2кат">
+								<label for="Овес" class="for-radio"><span>Овес</span></label>
+							</div>
+							
+							<div class="select_item">
+								<label for="Терновник_бронза" class="for-radio"><img alt="Терновник бронза" src="img/мини/стекла/Терновник_бронза.png"></label>
+								<input type="radio" name="glass_color" value="Терновник_бронза" id="Терновник_бронза" class="2кат">
+								<label for="Терновник_бронза" class="for-radio"><span>Терновник бронза</span></label>
+							</div><div class="clearFix"></div>
+						</div>
+						<!-- /стекла -->
+
+						<!-- ручки -->
+						<div class="handles_type_select">
+							<div class="select_item">
+								<label for="33898" class="for-radio"><img alt="33898" src="img/мини/ручки/33898.png"></label>
+								<input type="radio" name="handles_type" value="33898" id="33898">
+								<label for="33898" class="for-radio"><span>33898</span></label>
+							</div>
+
+							<div class="select_item">
+								<label for="RR002ST" class="for-radio"><img alt="RR002ST" src="img/мини/ручки/RR002ST.png"></label>
+								<input type="radio" name="handles_type" value="RR002ST" id="RR002ST">
+								<label for="RR002ST" class="for-radio"><span>RR002ST</span></label>
+							</div><div class="clearFix"></div>
+							
+							<div class="select_item">
+								<label for="RS006SN" class="for-radio"><img alt="RS006SN" src="img/мини/ручки/RS006SN.png"></label>
+								<input type="radio" name="handles_type" value="RS006SN" id="RS006SN">
+								<label for="RS006SN" class="for-radio"><span>RS006SN</span></label>
+							</div>
+							
+							<div class="select_item">
+								<label for="RS008CP" class="for-radio"><img alt="RS008CP" src="img/мини/ручки/RS008CP.png"></label>
+								<input type="radio" name="handles_type" value="RS008CP" id="RS008CP">
+								<label for="RS008CP" class="for-radio"><span>RS008CP</span></label>
+							</div><div class="clearFix"></div>
+							
+							<div class="select_item">
+								<label for="RS008GP" class="for-radio"><img alt="RS008GP" src="img/мини/ручки/RS008GP.png"></label>
+								<input type="radio" name="handles_type" value="RS008GP" id="RS008GP">
+								<label for="RS008GP" class="for-radio"><span>RS008GP</span></label>
+							</div>
+							
+							<div class="select_item">
+								<label for="RS008SC" class="for-radio"><img alt="RS008SC" src="img/мини/ручки/RS008SC.png"></label>
+								<input type="radio" name="handles_type" value="RS008SC" id="RS008SC">
+								<label for="RS008SC" class="for-radio"><span>RS008SC</span></label>
+							</div><div class="clearFix"></div>
+						</div>
+						<!-- /ручки -->
+
+						<!-- заготовка ->
+						<div class="">
+							<div class="select_item">
+								<label for="" class="for-radio"><img alt="" src="img/мини//.png"></label>
+								<input type="radio" name="" value="" id="">
+								<label for="" class="for-radio"><span></span></label>
+							</div>
+						</div>
+
+						<div class="clearFix"></div>
+						<!-	/заготовка -->
+					</div>
+				</div>
+				<!-- /панель выбора -->
+
+				<div class="clearFix"></div>
+				<div class="calc_footer">
+					<h3>Общий итог: <span id="TP_span">0 000 000 руб.</span></h3>
+
+					<!-- Оформление заказа -->
+					<div class="issue_the_order">
+						Для получения консультации по выбранной кухне
+						или оформления заказа достаточно отправить заявку
+						<div class="button_wrap">
+							<input type="button" class="button_left" value="Оформить заказ" id="issue_order_button">
+							<input type="image" class="button_right" src="img/forpage/print_icon.png" id="issue_order_print" alt="печать">
+						</div>
+					</div>
+					<div id="order_form">
+						<form>
+							<table>
+								<tr><td>
+									<img alt="птицы" src="img/forpage/birds.png">
+									<h1>Отправить заявку</h1>
+									<h3>Для оформления заказа необходимо отправить предварительную заявку</h3>
+								</td></tr>
+								<tr> <td><input type="text" name="usr_name" placeholder="Имя*" required></td> </tr>
+								<tr> <td><input type="tel" name="usr_tel" placeholder="Телефон*" required></td> </tr>
+								<tr> <td><input type="email" name="usr_email" placeholder="E-mail*" required></td> </tr>
+								<tr> <td><span class="required">* Поле для обязательного заполнения.</span></td> </tr>
+								<tr> <td id="order_status"></td> </tr>
+							</table>
+						</form>
+					</div>
+					<!-- /Оформление заказа -->
+				</div>
+
+				<!-- блок с информацией для печати -->
+				<div id="kitchen_info_for_print"></div>
+			</div>
+		</div>
+	</body>
+</html>
