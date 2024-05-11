@@ -15,7 +15,7 @@ function smtpmail($to, $subject, $content, $attach=false){
 	  
 	  $mail->SMTPAuth = true;
 	  $mail->Username = "webmaster@mgformat.ru";
-	  $mail->Password = "AR7zTzpRY7AA";
+	  $mail->Password = "";
 	  
 	  $mail->AddAddress($to); //кому письмо
 	  $mail->Subject = htmlspecialchars($subject); // тема
